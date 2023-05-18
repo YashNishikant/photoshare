@@ -2,3 +2,82 @@
     text-align: center;
     background-color: rgb(0, 0, 0);
   }
+  
+.googlelogo{
+  
+  vertical-align: middle;
+  margin-right:20px
+}
+
+.cameraLogo{
+  margin-bottom:450px;
+}
+
+.googlebutton{
+  vertical-align: middle;
+  background-color: rgb(0, 0, 0);
+  border: 1px solid transparent;
+  border-radius: .75rem;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  flex: 0 0 auto;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  margin-top:70px;
+  padding: 1px 6px 1px 6px;
+  transition-duration: .2s;
+  transition-property: background-color,border-color,color,fill,stroke;
+  transition-timing-function: cubic-bezier(.4, 0, 0.2, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  
+}
+
+.signinButton {
+  background-color: rgb(0, 0, 0);
+  border: 1px solid transparent;
+  border-radius: .75rem;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  flex: 0 0 auto;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  margin-top:70px;
+  padding: .75rem 1.2rem;
+  text-align: center;
+  transition-duration: .2s;
+  transition-property: background-color,border-color,color,fill,stroke;
+  transition-timing-function: cubic-bezier(.4, 0, 0.2, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: auto;
+  height:auto;
+}
+
+.signinButton:hover {
+  background-color: #374151;
+}
+
+.googlebutton:hover{
+  background-color: #374151;
+}
+
+.signinButton:focus {
+  box-shadow: none;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+@media (min-width: 768px) {
+  .signinButton {
+    padding: .75rem 1.5rem;
+  }
+  .googlebutton {
+    padding: .75rem 1.5rem;
+  }
+}
