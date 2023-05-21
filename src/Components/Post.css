@@ -1,0 +1,9 @@
+li{
+    position: relative;
+    display: block;
+    padding: 10px, 20px;
+    font-size: 45px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid;
+  }

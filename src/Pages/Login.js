@@ -1,7 +1,7 @@
 import React from 'react'
 import "../Pages/Login.css"
-import {auth, db, provider} from '../firebaseconfig'
-import { signInWithPopup, getAuth } from 'firebase/auth'
+import {auth, provider} from '../firebaseconfig'
+import { signInWithPopup } from 'firebase/auth'
 import googleimage from '../Components/googleLogo.png'
 import camlogo from '../Components/camera.png'
 
@@ -10,6 +10,7 @@ function Login({setAuth}) {
     const signInWithGoogle = () => {
         signInWithPopup(auth, provider).then((result) =>{
             localStorage.setItem("isAuth",true)
+            localStorage.setItem("authName",auth.currentUser.displayName)
             setAuth(true);
             window.location.pathname = "/";
         });
@@ -21,8 +22,8 @@ function Login({setAuth}) {
             <header className="App-header">
             <img className="cameraLogo" src={camlogo}></img>
 
-            <input className="App-login" placeholder='Username'></input>
-            <input className="App-pswrd" placeholder='Password'></input>
+            <input className="App-login" placeholder='Username'/>
+            <input className="App-pswrd" placeholder='Password'/>
             
             <button className="signinButton">Sign In</button>
             
