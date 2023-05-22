@@ -2,42 +2,39 @@ import React, { useEffect, useState, setState } from 'react'
 import "../Pages/Home.css"
 import { db, auth } from '../firebaseconfig'
 import { onValue, ref, set } from 'firebase/database';
+import Post from '../Components/Post'
 
 var msg
 var capmsg
 
 function Home() {
 
-  const [item, setItem] = useState("")
   const [list, setList] = useState([])
 
-  const handleChange = (e) => {
-      setItem(e.target.value)
-  }
-
   useEffect(() => {
-    
-    console.log("started")
+    setList([])
     onValue(ref(db, "Users" + "/" + localStorage.getItem("authName")), (snapshot) => {
-      const data = snapshot.val() 
-      {Object.values(data).map(item => (
-        setList(oldArray => [...oldArray, item])
-      ))
-      }
       
+      if(snapshot.hasChildren){
+        const data = snapshot.val()
+
+        if(data){
+          {Object.values(data).map(item => (setList(oldArray => [...oldArray, item])))}
+        }
+      }
     });
   
   }, [])
 
   
   const writeData = () => {
+    setList([])
     set(ref(db, "Users" + "/" + auth.currentUser.displayName + "/" + msg),
     {
         Author: auth.currentUser.displayName,
-        MSG: msg,
+        PostMessage: msg,
         Caption: capmsg
-    });     
-    setItem("")
+    });    
   };
 
   if(!localStorage.getItem("isAuth")){
@@ -52,9 +49,11 @@ function Home() {
   else{
     return (
       <div>
-
         {list.map((item) => (
-          <h2>{item.MSG}</h2>
+          <>
+            <Post Author={item.Author} PostMessage={item.PostMessage} Caption={item.Caption}></Post>
+            <hr/>
+          </>
         ))}
 
       <header className="App-header">

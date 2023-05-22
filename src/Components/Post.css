@@ -1,9 +1,20 @@
-li{
-    position: relative;
-    display: block;
-    padding: 10px, 20px;
-    font-size: 45px;
-    margin-bottom: 10px;
-    background-color: #fff;
-    border: 1px solid;
-  }
+.totaldiv{
+  text-align: center;
+  width:40%;
+  background-color: rgb(251, 251, 251);
+  box-shadow: rgb(106, 106, 106) 0px 3px 8px;;
+  margin-top:20px;
+  margin-left:530px;
+  padding: 20px;
+  border-radius: 10px;
+  border-width:0cm;
+  flex-direction: column;
+  align-self: center; 
+  align-items: center; 
+  text-align: center;
+}
+
+form{
+  align-items: center;  
+  text-align: center;
+}

@@ -1,24 +1,16 @@
 import React from 'react'
+import "../Components/Post.css"
 
-export default class Post extends React.Component{
-
-  constructor(props){
-    super(props);
-    this.state = {
-      Author: props.name,
-      Message: props.message,
-      Caption: props.caption
-    }
-  }
-
-  render(){
-    return(
-      <div>
-          <h1>Author: {this.state.Author}</h1>
-          <h1>Message: {this.state.MSG}</h1>
-          <h1>Caption: {this.state.Caption}</h1>
-      </div>
-    );
-  }
-
+function Post({Author, PostMessage, Caption}) {
+  return(
+    <div className='totaldiv'>
+        <form>
+          <h1>{Author}</h1>
+          <h3>Message: {PostMessage}</h3>
+          <h3>Caption: {Caption}</h3>
+        </form>
+    </div>
+  );
 }
+
+export default Post
