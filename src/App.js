@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Routes, Route, Link, useAsyncError} from "react
 import Dashboard from './Pages/Dashboard';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
+import CreateAccount from './Pages/CreateAccount';
 import {signOut} from "firebase/auth"
 import { useState } from 'react';
 import { auth } from './firebaseconfig';
@@ -32,13 +33,20 @@ function App() {
 
               <Link to ="/"> Home </Link>  
               <Link to ="/Dashboard"> Dashboard </Link>  
+
+              {!isAuth ? (
+                <Link to ="/CreateAccount">Sign Up</Link>
+                ) : (
+                  <></>
+                )}  
+
             </nav>
-              
 
           <Routes>
             <Route path="/Login" element={<Login setAuth = {setAuth}/>} />
             <Route path="/" element={<Home/>} />
             <Route path="/Dashboard" element={<Dashboard/>} />
+            <Route path="/CreateAccount" element={<CreateAccount setAuth = {setAuth}/>} />
 
           </Routes>
         </Router>
