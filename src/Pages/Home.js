@@ -5,15 +5,13 @@ import { onValue, set, ref } from 'firebase/database';
 import { ref as refImg, uploadBytes } from 'firebase/storage'
 import Post from '../Components/Post'
 
-var msg
-var capmsg
-
 function Home() {
 
+  const [msg, setMsg] = useState("")
+  const [capmsg, setCapMsg] = useState("")
   const [image, setImage] = useState(null)
   const [list, setList] = useState([])
   const [name, setName] = useState("")
-
 
   const writeData = () => {
     setList([])
@@ -30,8 +28,8 @@ function Home() {
         PostMessage: msg,
         Caption: capmsg
     });
-    msg=""
-    capmsg=""
+    setMsg("")
+    setCapMsg("")
     setImage(null)
   };
 
@@ -47,7 +45,7 @@ function Home() {
     onValue(ref(db, "Users" + "/" + localStorage.getItem("authName")), (snapshot) => {
       if(snapshot.hasChildren){
         const data = snapshot.val()
-        if(data){
+        if(data){ 
           {Object.values(data).map(newitem => (setList(prev => [...prev, newitem])))}
         }
       }
@@ -75,12 +73,12 @@ function Home() {
         <div className='textDiv'>
           <input value = {msg} className="textfield" id="textbox" placeholder='Message'
             onChange={(event)=>{
-              msg = event.target.value
+              setMsg(event.target.value)
             }}
           />
           <input value = {capmsg} className="textfieldCaption" id="textboxCaption" placeholder='Caption'
             onChange={(event)=>{
-              capmsg = event.target.value
+              setCapMsg(event.target.value)
             }}
           />
           <input type="file" onChange={(event)=>{setImage(event.target.files[0])}}></input>
