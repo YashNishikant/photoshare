@@ -1,7 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
 import {auth} from '../firebaseconfig'
-
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 function CreateAccount({setAuth}) {
