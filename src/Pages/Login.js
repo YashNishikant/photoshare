@@ -14,6 +14,7 @@ function Login({setAuth}) {
         signInWithPopup(auth, provider).then((result) =>{
             localStorage.setItem("isAuth",true)
             localStorage.setItem("authName",auth.currentUser.displayName)
+            localStorage.setItem("authEmail",auth.currentUser.email)
             setAuth(true);
             window.location.pathname = "/";
         });
@@ -23,6 +24,14 @@ function Login({setAuth}) {
         signInWithEmailAndPassword(auth, email, password).then((result) =>{
             localStorage.setItem("isAuth",true)
             localStorage.setItem("authName",auth.currentUser.displayName)
+            
+            if(localStorage.getItem("authName").localeCompare("null")==0){
+                var s = ""+auth.currentUser.email
+                s = s.substring(0,s.indexOf("@"))
+                localStorage.setItem("authName",s)
+            }
+            
+            localStorage.setItem("authEmail",auth.currentUser.email)
             setAuth(true);
             window.location.pathname = "/";
         });
