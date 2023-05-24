@@ -12,8 +12,7 @@ function Dashboard() {
   const [email, setEmail] = useState("")
 
   const inc = () => {
-     setCount(count+1)
-     i++
+     setCount(prevState => prevState + 1)
   }
 
   useEffect(() => {

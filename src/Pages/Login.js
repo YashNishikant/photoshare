@@ -43,7 +43,7 @@ function Login({setAuth}) {
             <img className="cameraLogo" src={camlogo}></img>
 
             <input className="App-login" placeholder='Username' onChange={(e)=>{setEmail(e.target.value)}}/>
-            <input className="App-pswrd" placeholder='Password' onChange={(e)=>{setpassword(e.target.value)}}/>
+            <input className="App-pswrd" placeholder='Password' onChange={(e)=>{setpassword(e.target.value)}} type="password"/>
             
             <button className="signinButton" onClick={signInEmailPswrd}>Sign In</button>
 

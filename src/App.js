@@ -4,6 +4,7 @@ import Dashboard from './Pages/Dashboard';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
 import CreateAccount from './Pages/CreateAccount';
+import YourPosts from './Pages/YourPosts';
 import {signOut} from "firebase/auth"
 import { useState } from 'react';
 import { auth } from './firebaseconfig';
@@ -38,7 +39,13 @@ function App() {
                 <Link to ="/CreateAccount">Sign Up</Link>
                 ) : (
                   <></>
-                )}  
+                )}
+
+              {isAuth ? (
+                <Link to ="/YourPosts">Your Posts</Link>
+                ) : (
+                  <></>
+                )}    
 
             </nav>
 
@@ -46,6 +53,7 @@ function App() {
             <Route path="/Login" element={<Login setAuth = {setAuth}/>} />
             <Route path="/" element={<Home/>} />
             <Route path="/Dashboard" element={<Dashboard/>} />
+            <Route path="/YourPosts" element={<YourPosts/>} />
             <Route path="/CreateAccount" element={<CreateAccount setAuth = {setAuth}/>} />
 
           </Routes>
