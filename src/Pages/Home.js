@@ -1,73 +1,48 @@
-import React, { useEffect, useState, setState, useContext, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import "../Pages/Home.css"
 import { db, auth, storage } from '../firebaseconfig'
-import { onValue, set, ref } from 'firebase/database';
-import { getDownloadURL, listAll, ref as refImg, uploadBytes } from 'firebase/storage'
-import Post from '../Components/Post'
+import { set, ref } from 'firebase/database';
+import { ref as refImg, uploadBytes } from 'firebase/storage'
 
 var s
 var refImage
 
 function Home() {
 
-  const [msg, setMsg] = useState("")
   const [capmsg, setCapMsg] = useState("")
   const [image, setImage] = useState(null)
-  const [list, setList] = useState([])
-  const [imageList, setImageList] = useState([])
   const [name, setName] = useState("")
 
 
-  // useEffect(() => {
-    
-  //   setList([])
-  //   setImageList([])
-
-  //   refImage = (refImg(storage, localStorage.getItem("authName")))
-  //   listAll(refImage).then((ans) => {
-      
-  //     ans.items.forEach((item) => {
-  //       getDownloadURL(item).then((url) => {
-  //         setImageList(prev => [...prev, url])
-  //       })
-  //     })
-
-  //   })
-  //   if(localStorage.getItem("authName").localeCompare("null")==0){
-  //     s = localStorage.getItem("authEmail")
-  //     s = s.substring(0, s.indexOf("@"))
-  //     setName(s)
-  //   }
-  //   else{setName(localStorage.getItem("authName"))}
-
-  //   onValue(ref(db, "Users" + "/" + localStorage.getItem("authName")), (snapshot) => {
-  //     if(snapshot.hasChildren){
-  //       const data = snapshot.val()
-  //       if(data){{Object.values(data).map(newitem => (setList(prev => [...prev, newitem])))}
-  //   }}});}, [])
+  useEffect(() => {
+      if(localStorage.getItem("authName").localeCompare("null")==0){
+        s = localStorage.getItem("authEmail")
+        s = s.substring(0, s.indexOf("@"))
+        setName(s)
+      }
+    else{setName(localStorage.getItem("authName"))}
+}, [])
 
   const writeData = () => {
-    setList([])
-    setImageList([])
     
-    if(image==null || msg==null) return
+    if(image==null || capmsg==null) return
     var s = image.name
     s = s.substring(0,s.indexOf("."))
-    
+    const date = new Date();
     refImage = (refImg(storage, localStorage.getItem("authName") + '/' + s))
     uploadBytes(refImage, image).then(()=>{
       alert("hi")
     }) 
-    set(ref(db, "Users" + "/" + localStorage.getItem("authName") + "/" + msg),
+    set(ref(db, "Users" + "/" + localStorage.getItem("authName") + "/" + capmsg),
     {
         Author: auth.currentUser.displayName,
-        PostMessage: msg,
         Caption: capmsg,
-        ImageName: s
+        ImageName: s,
+        Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear()
     });
-    setMsg("")
     setCapMsg("")
     setImage(null)
+
   };
 
 
@@ -78,21 +53,9 @@ function Home() {
   else{
     return (
       <div>
-        <h2>Hello {name}</h2>
-
-        {/* {list.map((item, index) => {
-          return(<>
-            <Post Author={item.Author} PostMessage={item.PostMessage} Caption={item.Caption} Image={imageList[index]}></Post>
-            <hr/>
-          </>)})} */}
-
       <header className="App-header">
+        <h2 className="nametag">{name}</h2>
         <div className='textDiv'>
-          <input value = {msg} className="textfield" id="textbox" placeholder='Message'
-            onChange={(event)=>{
-              setMsg(event.target.value)
-            }}
-          />
           <input value = {capmsg} className="textfieldCaption" id="textboxCaption" placeholder='Caption'
             onChange={(event)=>{
               setCapMsg(event.target.value)

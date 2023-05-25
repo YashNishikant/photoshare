@@ -1,22 +1,16 @@
-import React, { useEffect, useState, setState, useContext, useRef } from 'react'
+import React, { useEffect, useState} from 'react'
 import "../Pages/YourPosts.css"
-import { db, auth, storage } from '../firebaseconfig'
-import { onValue, set, ref } from 'firebase/database';
-import { getDownloadURL, listAll, ref as refImg, uploadBytes } from 'firebase/storage'
+import { db, storage } from '../firebaseconfig'
+import { onValue, ref } from 'firebase/database';
+import { getDownloadURL, listAll, ref as refImg } from 'firebase/storage'
 import Post from '../Components/Post'
 
-var s
 var refImage
 
 function YourPosts() {
 
-  const [msg, setMsg] = useState("")
-  const [capmsg, setCapMsg] = useState("")
-  const [image, setImage] = useState(null)
   const [list, setList] = useState([])
   const [imageList, setImageList] = useState([])
-  const [name, setName] = useState("")
-
 
   useEffect(() => {
     
@@ -25,26 +19,23 @@ function YourPosts() {
 
     refImage = (refImg(storage, localStorage.getItem("authName")))
     listAll(refImage).then((ans) => {
-      
-      ans.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageList(prev => [...prev, url])
+      ans.items.forEach((imageitem) => {
+        console.log("first: " + imageitem.fullPath)
+        getDownloadURL(imageitem).then((url) => {
+          console.log("second: " + imageitem.fullPath)
+          setImageList((prev) => [...prev, url])
         })
       })
-
     })
-    if(localStorage.getItem("authName").localeCompare("null")==0){
-      s = localStorage.getItem("authEmail")
-      s = s.substring(0, s.indexOf("@"))
-      setName(s)
-    }
-    else{setName(localStorage.getItem("authName"))}
 
     onValue(ref(db, "Users" + "/" + localStorage.getItem("authName")), (snapshot) => {
       if(snapshot.hasChildren){
         const data = snapshot.val()
-        if(data){{Object.values(data).map(newitem => (setList(prev => [...prev, newitem])))}
-    }}});}, [])
+        if(data){
+          {Object.values(data).map(newitem => (setList(prev => [...prev, newitem])))}
+        }
+      }
+    });}, [])
 
 
   if(!localStorage.getItem("isAuth")){
@@ -56,9 +47,10 @@ function YourPosts() {
       <div>
 
         {list.map((item, index) => {
+
           return(<>
-            <Post Author={item.Author} PostMessage={item.PostMessage} Caption={item.Caption} Image={imageList[index]}></Post>
-            <hr/>
+            <Post key={index} Author={item.Author} Caption={item.Caption} ImageUrl={imageList[index]} Date={item.Date}></Post>
+            <hr key={index*10 + 1}/>
           </>)})}
     
     </div>

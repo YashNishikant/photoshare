@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react'
 import "../Pages/Dashboard.css"
 import { db, auth } from '../firebaseconfig'
 import { onValue, ref } from 'firebase/database'
-
-var i = 0
+import defaultImg from '../Components/defaultpfp.png'
 
 function Dashboard() {
 
@@ -16,10 +15,11 @@ function Dashboard() {
   }
 
   useEffect(() => {
+    setCount(0)  
     setName(localStorage.getItem("authName"))    
     setEmail(localStorage.getItem("authEmail"))
 
-    if(localStorage.getItem("authName").localeCompare("null")==0){
+    if(localStorage.getItem("authName").localeCompare("null")===0){
       var s = localStorage.getItem("authEmail")
       s = s.substring(0, s.indexOf("@"))
       setName(s)
@@ -33,6 +33,11 @@ function Dashboard() {
           }
       }
     });
+
+    if((""+localStorage.getItem("authImage")).localeCompare("null")===0){
+      localStorage.setItem("authImage", defaultImg.link)
+    }
+
   }, [])
 
 
@@ -47,9 +52,17 @@ function Dashboard() {
   else{
     return (
       <div>
-        <h1>Welcome {name}</h1>
-        <h1>Email: {email}</h1>
-        <h1>Posts: {i} </h1>
+
+      <img className="pfp" src={localStorage.getItem("authImage")}/>
+      <h1 className="welcome">Welcome {name}</h1>
+
+      <hr></hr>
+
+        <div className="infoDiv">
+            <h1>Email: {email}</h1>
+            <h1>Posts: {count} </h1>
+            <h1>Account Creation: {localStorage.getItem("authDate")} </h1>
+        </div>
       </div>
     )
   }

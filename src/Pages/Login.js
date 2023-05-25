@@ -15,6 +15,8 @@ function Login({setAuth}) {
             localStorage.setItem("isAuth",true)
             localStorage.setItem("authName",auth.currentUser.displayName)
             localStorage.setItem("authEmail",auth.currentUser.email)
+            localStorage.setItem("authImage",auth.currentUser.photoURL)
+            
             setAuth(true);
             window.location.pathname = "/";
         });
