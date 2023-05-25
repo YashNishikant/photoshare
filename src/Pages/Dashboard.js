@@ -38,6 +38,7 @@ function Dashboard() {
       localStorage.setItem("authImage", defaultImg.link)
     }
 
+
   }, [])
 
 
