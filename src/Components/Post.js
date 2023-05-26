@@ -5,7 +5,7 @@ var w;
 var h;
 
 function Post({Author, Caption, ImageUrl, Date}) {
-  
+
   const img = new Image()
   img.src = ImageUrl
 
@@ -23,7 +23,7 @@ function Post({Author, Caption, ImageUrl, Date}) {
     const ratio = (newWidth/oldWidth)
     h=img.height*(ratio)
   }
-  
+
   else 
     h = img.height
 
@@ -34,6 +34,7 @@ function Post({Author, Caption, ImageUrl, Date}) {
           <h1>{Author}</h1>
           {/* {<img src={ImageUrl} style={{width:w, height:h}}></img>} */}
           {<img src={ImageUrl}></img>}
+          <hr/>
           {<h3>{Caption}</h3>}
         </form>
     </div>

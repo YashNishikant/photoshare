@@ -62,7 +62,6 @@ function Dashboard() {
         <div className="infoDiv">
             <h1>Email: {email}</h1>
             <h1>Posts: {count} </h1>
-            <h1>Account Creation: {localStorage.getItem("authDate")} </h1>
         </div>
       </div>
     )

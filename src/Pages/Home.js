@@ -8,6 +8,7 @@ var s
 var refImage
 var i=0
 
+
 function Home() {
 
   const [capmsg, setCapMsg] = useState("")
@@ -15,13 +16,13 @@ function Home() {
   const [name, setName] = useState("")
 
   useEffect(() => {
-      if(localStorage.getItem("authName").localeCompare("null")==0){
-        s = localStorage.getItem("authEmail")
-        s = s.substring(0, s.indexOf("@"))
-        setName(s)
-      }
+    if(localStorage.getItem("authName").localeCompare("null")==0){
+      s = localStorage.getItem("authEmail")
+      s = s.substring(0, s.indexOf("@"))
+      setName(s)
+    }
     else{setName(localStorage.getItem("authName"))}
-}, [])
+  });
 
   const writeData = () => {
     
@@ -32,7 +33,7 @@ function Home() {
     i++
     set(ref(db, "Users" + "/" + localStorage.getItem("authName") + "/" + capmsg),
     {
-        id:{i},
+        id:i,
         Author: auth.currentUser.displayName,
         Caption: capmsg,
         ImageName: s,
@@ -45,32 +46,25 @@ function Home() {
 
     setCapMsg("")
     setImage(null)
-
+    
   };
 
-
-  if(!localStorage.getItem("isAuth")){
-    window.location.pathname = "/Login";
-    return(<div>Redirecting...</div>)
-  }
-  else{
-    return (
-      <div>
-      <header className="App-header">
-        <h2 className="nametag">{name}</h2>
-        <div className='textDiv'>
-          <input value = {capmsg} className="textfieldCaption" id="textboxCaption" placeholder='Caption'
-            onChange={(event)=>{
-              setCapMsg(event.target.value)
-            }}
-          />
-          <input type="file" onChange={(event)=>{setImage(event.target.files[0])}}></input>
-          <button className="signinButton" onClick={writeData}>Submit</button>
-        </div>
-      </header>
-      </div>
-    )
-  }
-
+return (
+  <div>
+  <header className="App-header">
+    <h2 className="nametag">{name}</h2>
+    <div className='textDiv'>
+      <input value = {capmsg} className="textfieldCaption" id="textboxCaption" placeholder='Caption'
+        onChange={(event)=>{
+          setCapMsg(event.target.value)
+        }}
+      />
+      <input type="file" onChange={(event)=>{setImage(event.target.files[0])}}></input>
+      <button className="signinButton" onClick={writeData}>Submit</button>
+    </div>
+  </header>
+  </div>
+)
+  
 }
 export default Home

@@ -47,9 +47,9 @@ function Login({setAuth}) {
             <input className="App-login" placeholder='Username' onChange={(e)=>{setEmail(e.target.value)}}/>
             <input className="App-pswrd" placeholder='Password' onChange={(e)=>{setpassword(e.target.value)}} type="password"/>
             
-            <button className="signinButton" onClick={signInEmailPswrd}>Sign In</button>
-
+            <button className="signinButton" onClick={signInEmailPswrd} >Sign In</button>
             <button className="googlebutton" onClick={signInWithGoogle}>
+
             <img src={googleimage} className="googlelogo" border="0"/>
                 Continue With Google
             </button>
