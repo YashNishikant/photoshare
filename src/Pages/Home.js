@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import "../Pages/Home.css"
 import { db, auth, storage } from '../firebaseconfig'
-import { set, ref, onValue } from 'firebase/database';
-import { ref as refImg, uploadBytes } from 'firebase/storage'
+import { set, ref, onValue, getDatabase } from 'firebase/database';
+import { getDownloadURL, listAll, ref as refImg, uploadBytes } from 'firebase/storage'
 
 var s
 var refImage
 var i=0
-
+var refImage2
+var totallist=[]
 
 function Home() {
 
@@ -25,24 +26,37 @@ function Home() {
   });
 
   const writeData = () => {
-    
-    if(image==null || capmsg==null) return
+
+    if(image==null || capmsg==null) {
+      return
+    }
+
     var s = image.name
     s = s.substring(0,s.indexOf("."))
     const date = new Date();
     i++
-    set(ref(db, "Users" + "/" + localStorage.getItem("authName") + "/" + capmsg),
-    {
-        id:i,
-        Author: auth.currentUser.displayName,
-        Caption: capmsg,
-        ImageName: s,
-        Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear()
-    });
     refImage = (refImg(storage, localStorage.getItem("authName") + '/' + s))
+
     uploadBytes(refImage, image).then(()=>{
-      alert("hi")
+      alert("done")
+      refImage2 = (refImg(storage, localStorage.getItem("authName")))
+      listAll(refImage2).then((ans) => {
+        ans.items.forEach((imageitem) => {
+          getDownloadURL(imageitem).then((url) => {
+            set(ref(db, "Users" + "/" + localStorage.getItem("authName") + "/" + capmsg),
+            {
+                id:i,
+                Author: auth.currentUser.displayName,
+                Caption: capmsg,
+                ImageUrl: url,
+                Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear()
+            });
+          })
+        })
+      })
     }) 
+    
+
 
     setCapMsg("")
     setImage(null)
