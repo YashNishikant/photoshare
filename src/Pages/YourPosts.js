@@ -14,16 +14,11 @@ function YourPosts() {
       if(snapshot.hasChildren){
         const data = snapshot.val()
           if(data){
-            console.log(data)
             {Object.values(data).map(newitem => (setList(prev => [...prev, newitem])))}
           }
         }
     });
   }, [])
-
-  const clearList = ()=>{
-    setList([])
-  }
 
   if(!localStorage.getItem("isAuth")){
     window.location.pathname = "/Login";
@@ -32,9 +27,10 @@ function YourPosts() {
   else{
     return (
       <div>
+
         {list.map((item) => {
           return(
-          <div onLoad={clearList}>
+          <div>
             <Post Author={item.Author} Caption={item.Caption} ImageUrl={item.ImageUrl} Date={item.Date}></Post>
           </div>)})}
           

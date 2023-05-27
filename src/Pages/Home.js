@@ -6,12 +6,10 @@ import { getDownloadURL, listAll, ref as refImg, uploadBytes } from 'firebase/st
 
 var s
 var refImage
-var i=0
 var refImage2
-var totallist=[]
+var finalImage
 
 function Home() {
-
   const [capmsg, setCapMsg] = useState("")
   const [image, setImage] = useState(null)
   const [name, setName] = useState("")
@@ -34,33 +32,32 @@ function Home() {
     var s = image.name
     s = s.substring(0,s.indexOf("."))
     const date = new Date();
-    i++
     refImage = (refImg(storage, localStorage.getItem("authName") + '/' + s))
-
     uploadBytes(refImage, image).then(()=>{
       alert("done")
+      var imageName1=image.name
+      imageName1=imageName1.substring(0,imageName1.indexOf('.'))
       refImage2 = (refImg(storage, localStorage.getItem("authName")))
       listAll(refImage2).then((ans) => {
         ans.items.forEach((imageitem) => {
           getDownloadURL(imageitem).then((url) => {
+            var imageName2=imageitem.name
+            if((""+imageName1).localeCompare(""+imageName2)===0){
+              finalImage=url
+            }
             set(ref(db, "Users" + "/" + localStorage.getItem("authName") + "/" + capmsg),
             {
-                id:i,
                 Author: auth.currentUser.displayName,
                 Caption: capmsg,
-                ImageUrl: url,
+                ImageUrl: finalImage,
                 Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear()
             });
           })
         })
       })
     }) 
-    
-
-
     setCapMsg("")
     setImage(null)
-    
   };
 
 return (
