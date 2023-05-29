@@ -11,6 +11,8 @@ function Search() {
   const [list, setList] = useState([])
   const [listShow, setListShow] = useState([])
   const [listDisplay, setListDisplay] = useState([])
+  const [emailnode, setEmailNode] = useState("")
+  const [otherUser, setOtherUser] = useState([])
 
   useEffect(() => {
     setList([])
@@ -21,15 +23,6 @@ function Search() {
             for(var key in data){
                 onValue(ref(db, "Users/userlist/"+key), (snapshot) => {
                     const data = snapshot.val()
-
-                    // for(var key in data){
-
-                    //     console.log(list.length)
-
-                    //     const a = [data['user'], data['email']]
-                    //     setList(prev => [...prev, a])
-                    // }
-
                     Object.values(data).map(newitem => (setList(prev => [...prev, newitem])))
                 })
             }
@@ -44,33 +37,55 @@ function Search() {
 
     if(list.length > 0){
         var j=0
-        for(var i = 1; i < list.length; i+=2){
-            listShow[j]=[list[i-1],list[i]]
+        for(var i = 2; i < list.length; i+=3){
+            listShow[j]=[list[i-2],list[i-1],list[i]]
             j++
         }
 
         tempList = listShow
         for(var i = tempList.length-1; i >= 0; i--){
-            if((""+tempList[i][1]).includes(e.target.value)){
-                const a = tempList[i][1]
+          var s1 = (""+tempList[i][2]).toLocaleLowerCase()
+          var s2 = (""+e.target.value).toLocaleLowerCase()
+            if((s1).includes(s2)){
+                const a = [tempList[i][1], tempList[i][2], tempList[i][0]]
                 setListDisplay(prev => [...(prev), a])
             }
         }
     }
+    
+    if(e.target.value===""){
+      setListDisplay([])
     }
+
+  }
+
+  const clickevent = (e) => {
+    var s = e
+    s = s.replace("@","")
+    s = s.replace(".","")
+
+    onValue(ref(db, "Users/"+s), (snapshot) => {
+      const data = snapshot.val()
+      console.log(data)
+    })
+
+  }
 
   return (
     <div>
+    <header className="Search-header">
+        <input className="searchField" placeholder='Search...' onChange={changeList}/>
+   
         {listDisplay.map((item) => {
-            
             return(
-                <NameNode Name={item}></NameNode>
+              <div>
+                <h1>{emailnode}</h1>
+                  <NameNode handleClick={clickevent} pfpimg={item[0]} Name={item[1]} email={item[2]}></NameNode>
+              </div>
             )
         })}
 
-    <header className="Search-header">
-        <input className="searchField" placeholder='Search...' onChange={changeList}/>
-    </header>
+    </header>    
     </div>
   )
 }

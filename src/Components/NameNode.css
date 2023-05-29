@@ -1,0 +1,33 @@
+.nameNodeButton{
+
+    background-color: #ffffff;
+    border: none;
+    color: rgb(0, 0, 0);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    font-family:'Impact';
+
+}
+
+.nameNodeButton:hover{
+
+    background-color: #000000;
+    border: none;
+    color: rgb(255, 255, 255);
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    font-family:'Impact';
+
+}
+
+.nameNodeDiv{
+    margin-top:50px;
+    display: flex; 
+    justify-content: space-between;
+}

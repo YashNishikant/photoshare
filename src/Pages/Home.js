@@ -31,7 +31,8 @@ function Home() {
     push(ref(db, "Users/userlist"),
     {
       user: auth.currentUser.displayName,
-      email: auth.currentUser.email
+      email: auth.currentUser.email,
+      pfp: auth.currentUser.photoURL
     },
     );
 
