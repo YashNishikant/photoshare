@@ -1,3 +1,5 @@
+
+
 .textDiv{
   margin-bottom:300px;
   display:flex;
@@ -8,25 +10,21 @@
 
 
 .textfield{
-
     width: 50%;
     padding: 12px 20px;
     display: inline-block;
     border: 1px solid #777777;
     box-sizing: border-box; 
     font-size: larger;
-
 }
 
 .textfieldCaption{
-
   width: 50%;
   padding: 12px 20px;
   display: inline-block;
   border: 1px solid #777777;
   box-sizing: border-box; 
   font-size: larger;
-
 }
 
 .signinButton {

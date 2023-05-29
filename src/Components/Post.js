@@ -32,12 +32,16 @@ function Post({Author, Caption, ImageUrl, Date}) {
   return(
     <div className='totaldiv'>
         <form>
-          {<p>{Date}</p>}
-          <h1>{Author}</h1>
-          {/* <img src={ImageUrl} style={{width:w, height:h}}></img>*/}
-          <img src={ImageUrl}></img>
+
+          <div className='authordiv'>
+            <img className="pfpPost" src={localStorage.getItem("authImage")} referrerPolicy="no-referrer"></img>
+            <p className="authorname">{Author}</p>
+            <p className="date" >{Date}</p>
+          </div>
+        
           <hr/>
-          {<h3>{Caption}</h3>}
+          <img src={ImageUrl}></img>
+          <p>{Author}: {Caption}</p>
         </form>
     </div>
   );

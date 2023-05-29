@@ -1,10 +1,8 @@
 .totaldiv{
-  text-align: center;
   width:40%;
   background-color: rgb(251, 251, 251);
   box-shadow: rgb(106, 106, 106) 0px 3px 8px;;
   margin-top:20px;
-  margin-left:530px;
   padding: 20px;
   border-radius: 10px;
   border-width:0cm;
@@ -14,7 +12,23 @@
   text-align: center;
 }
 
-form{
-  align-items: center;  
+.authordiv{
+  display: flex; 
+  justify-content: space-between;
+  margin-left: 0px;
+}
+
+.pfpPost{
+  width:5%;
+  margin-top:-10px;
+  background-color: rgb(251, 251, 251);
+  box-shadow: rgb(251, 251, 251) 0px 3px 8px;;
+  padding:20px;
+  border-radius:50px;
+  border-width:0cm;
+}
+
+.authorname{
   text-align: center;
+  font-weight: bold;
 }

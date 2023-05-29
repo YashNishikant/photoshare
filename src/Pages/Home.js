@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "../Pages/Home.css"
 import { db, auth, storage } from '../firebaseconfig'
-import { set, ref, onValue, getDatabase } from 'firebase/database';
+import { set, ref, onValue, getDatabase, push } from 'firebase/database';
 import { getDownloadURL, listAll, ref as refImg, uploadBytes } from 'firebase/storage'
 
 var s
@@ -24,20 +24,25 @@ function Home() {
   });
 
   const writeData = () => {
-
     if(image==null || capmsg==null) {
       return
     }
 
+    push(ref(db, "Users/userlist"),
+    {
+      user: auth.currentUser.displayName
+    },
+    );
+
+    localStorage.setItem("canAccessItems",false)
     var s = image.name
     s = s.substring(0,s.indexOf("."))
     const date = new Date();
-    refImage = (refImg(storage, localStorage.getItem("authName") + '/' + s))
+    refImage = (refImg(storage, localStorage.getItem("authEmail") + '/' + s))
     uploadBytes(refImage, image).then(()=>{
-      alert("done")
       var imageName1=image.name
       imageName1=imageName1.substring(0,imageName1.indexOf('.'))
-      refImage2 = (refImg(storage, localStorage.getItem("authName")))
+      refImage2 = (refImg(storage, localStorage.getItem("authEmail")))
       listAll(refImage2).then((ans) => {
         ans.items.forEach((imageitem) => {
           getDownloadURL(imageitem).then((url) => {
@@ -45,13 +50,21 @@ function Home() {
             if((""+imageName1).localeCompare(""+imageName2)===0){
               finalImage=url
             }
-            set(ref(db, "Users" + "/" + localStorage.getItem("authName") + "/" + capmsg),
+
+            var s = localStorage.getItem("authEmail")
+            s = s.replace("@","")
+            s = s.replace(".","")
+            set(ref(db, "Users" + "/" + s  + "/" + capmsg),
             {
                 Author: auth.currentUser.displayName,
+                Email: auth.currentUser.email,
                 Caption: capmsg,
                 ImageUrl: finalImage,
                 Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear()
-            });
+            },
+            localStorage.setItem("canAccessItems",true),
+            console.log("SET TO TRUE")
+            );
           })
         })
       })

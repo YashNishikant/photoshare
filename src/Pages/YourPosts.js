@@ -9,16 +9,32 @@ function YourPosts() {
   const [list, setList] = useState([])
 
   useEffect(() => {
+
+    var e = localStorage.getItem('canAccessItems')
+    console.log("Value before if: " + e)
+    if(e==false){
+      console.log('went here')
+      window.location.pathname = "/";
+    }
+    else{
+      console.log("E is " + e)
+    }
+
     setList([])      
-    onValue(ref(db, "Users" + "/" + localStorage.getItem("authName")), (snapshot) => {
+    var s = localStorage.getItem("authEmail")
+    s = s.replace("@","")
+    s = s.replace(".","")
+    onValue(ref(db, "Users" + "/" + s), (snapshot) => {
+      
       if(snapshot.hasChildren){
         const data = snapshot.val()
-          if(data){
+        if(data){
             {Object.values(data).map(newitem => (setList(prev => [...prev, newitem])))}
           }
         }
     });
   }, [])
+
 
   if(!localStorage.getItem("isAuth")){
     window.location.pathname = "/Login";
@@ -29,10 +45,13 @@ function YourPosts() {
       <div>
 
         {list.map((item) => {
-          return(
-          <div>
-            <Post Author={item.Author} Caption={item.Caption} ImageUrl={item.ImageUrl} Date={item.Date}></Post>
-          </div>)})}
+          if(item.Author){
+            return(
+            <div className="post">
+              <Post Author={item.Author} Caption={item.Caption} ImageUrl={item.ImageUrl} Date={item.Date}></Post>
+            </div>)
+          }
+        })}
           
       </div>
 

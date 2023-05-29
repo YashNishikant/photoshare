@@ -82,3 +82,19 @@ a {
   margin: 50px;
   font-size: 30px;
 }
+
+.searchLink{
+  display: flex; 
+  justify-content: end;
+  width:2%
+}
+
+.navDiv{
+  display: flex; 
+}
+
+.majorityNav{
+  display: flex; 
+  justify-content: center;
+  
+}

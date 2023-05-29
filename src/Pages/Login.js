@@ -16,6 +16,7 @@ function Login({setAuth}) {
             localStorage.setItem("authName",auth.currentUser.displayName)
             localStorage.setItem("authEmail",auth.currentUser.email)
             localStorage.setItem("authImage",auth.currentUser.photoURL)
+            localStorage.setItem("canAccessItems",true)
             
             setAuth(true);
             window.location.pathname = "/";
@@ -26,6 +27,9 @@ function Login({setAuth}) {
         signInWithEmailAndPassword(auth, email, password).then((result) =>{
             localStorage.setItem("isAuth",true)
             localStorage.setItem("authName",auth.currentUser.displayName)
+            localStorage.setItem("authEmail",auth.currentUser.email)
+            localStorage.setItem("authImage",auth.currentUser.photoURL)
+            localStorage.setItem("canAccessItems",true)
             
             if(localStorage.getItem("authName").localeCompare("null")==0){
                 var s = ""+auth.currentUser.email
