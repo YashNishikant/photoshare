@@ -30,7 +30,8 @@ function Home() {
 
     push(ref(db, "Users/userlist"),
     {
-      user: auth.currentUser.displayName
+      user: auth.currentUser.displayName,
+      email: auth.currentUser.email
     },
     );
 
