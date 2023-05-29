@@ -36,7 +36,6 @@ function App() {
                     <Link to ="/Login" onClick={signUserOut}> Log Out </Link>
                   )}  
 
-
                 <Link to ="/Dashboard"> Dashboard </Link>  
                 <Link to ="/"> Home </Link>  
 

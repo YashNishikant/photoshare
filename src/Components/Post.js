@@ -6,7 +6,7 @@ var h;
 var oldWidth;
 var newWidth;
 
-function Post({Author, Caption, ImageUrl, Date}) {
+function Post({Author, Caption, ImageUrl, Date, pfpImg}) {
 
   const img = new Image()
   img.src = ImageUrl
@@ -34,7 +34,8 @@ function Post({Author, Caption, ImageUrl, Date}) {
         <form>
 
           <div className='authordiv'>
-            <img className="pfpPost" src={localStorage.getItem("authImage")} referrerPolicy="no-referrer"></img>
+            
+            <img className="pfpPost" src={pfpImg} referrerPolicy="no-referrer"></img>
             <p className="authorname">{Author}</p>
             <p className="date" >{Date}</p>
           </div>

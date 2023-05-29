@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import "../Pages/Search.css"
-import { onValue, ref } from 'firebase/database';
+import { onValue, ref, set } from 'firebase/database';
 import { db } from '../firebaseconfig'
 import NameNode from '../Components/NameNode'
+import Post from'../Components/Post'
 
 var tempList = []
 
@@ -60,13 +61,16 @@ function Search() {
   }
 
   const clickevent = (e) => {
+
+    setOtherUser([])
+
     var s = e
     s = s.replace("@","")
     s = s.replace(".","")
 
     onValue(ref(db, "Users/"+s), (snapshot) => {
       const data = snapshot.val()
-      console.log(data)
+      Object.values(data).map(newitem => (setOtherUser(prev => [...prev, newitem])))
     })
 
   }
@@ -74,18 +78,29 @@ function Search() {
   return (
     <div>
     <header className="Search-header">
-        <input className="searchField" placeholder='Search...' onChange={changeList}/>
+      <input className="searchField" placeholder='Search...' onChange={changeList}/>
    
-        {listDisplay.map((item) => {
-            return(
-              <div>
-                <h1>{emailnode}</h1>
-                  <NameNode handleClick={clickevent} pfpimg={item[0]} Name={item[1]} email={item[2]}></NameNode>
-              </div>
-            )
-        })}
+      {listDisplay.map((item) => {
+          return(
+            <div>
+              <h1>{emailnode}</h1>
+              <NameNode handleClick={clickevent} pfpimg={item[0]} Name={item[1]} email={item[2]}></NameNode>
+            </div>
+          )
+      })}
 
-    </header>    
+    </header>
+    
+    <div>
+      {otherUser.map((item) => {
+        return(
+          <div className='post' >
+            <Post Author={item.Author} Caption={item.Caption} ImageUrl={item.ImageUrl} Date={item.Date} pfpImg={item.PfpUrl}></Post>
+          </div>
+        )
+      })}
+    </div>
+        
     </div>
   )
 }

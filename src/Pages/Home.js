@@ -3,6 +3,7 @@ import "../Pages/Home.css"
 import { db, auth, storage } from '../firebaseconfig'
 import { set, ref, onValue, getDatabase, push } from 'firebase/database';
 import { getDownloadURL, listAll, ref as refImg, uploadBytes } from 'firebase/storage'
+import defaultPfp from '../Components/defaultpfp.png'
 
 var s
 var refImage
@@ -15,6 +16,7 @@ function Home() {
   const [name, setName] = useState("")
 
   useEffect(() => {
+
     if(localStorage.getItem("authName").localeCompare("null")==0){
       s = localStorage.getItem("authEmail")
       s = s.substring(0, s.indexOf("@"))
@@ -27,14 +29,34 @@ function Home() {
     if(image==null || capmsg==null) {
       return
     }
+    const metadata = auth.currentUser.metadata;
 
-    push(ref(db, "Users/userlist"),
-    {
-      user: auth.currentUser.displayName,
-      email: auth.currentUser.email,
-      pfp: auth.currentUser.photoURL
-    },
-    );
+    console.log((metadata.creationTime == metadata.lastSignInTime) && localStorage.getItem("firstTime").localeCompare('true')===0)
+    if ((metadata.creationTime == metadata.lastSignInTime) && localStorage.getItem("firstTime").localeCompare('true')===0 && !(""+auth.currentUser.photoURL).localeCompare('null')===0) {
+
+      push(ref(db, "Users/userlist"),
+      {
+        user: auth.currentUser.displayName,
+        email: auth.currentUser.email,
+        pfp: auth.currentUser.photoURL
+      },
+      localStorage.setItem("firstTime", false)
+      );
+    }
+    else if ((metadata.creationTime == metadata.lastSignInTime) && localStorage.getItem("firstTime").localeCompare('true')===0 && (""+auth.currentUser.photoURL).localeCompare('null')===0){
+      
+      var diffAccountName = localStorage.getItem("authEmail")
+      diffAccountName = diffAccountName.substring(0, diffAccountName.indexOf("@"))
+
+      push(ref(db, "Users/userlist"),
+      {
+        user: diffAccountName,
+        email: auth.currentUser.email,
+        pfp: defaultPfp
+      },
+      localStorage.setItem("firstTime", false)
+      );
+    } 
 
     localStorage.setItem("canAccessItems",false)
     var s = image.name
@@ -52,21 +74,40 @@ function Home() {
             if((""+imageName1).localeCompare(""+imageName2)===0){
               finalImage=url
             }
-
             var s = localStorage.getItem("authEmail")
             s = s.replace("@","")
             s = s.replace(".","")
-            set(ref(db, "Users" + "/" + s  + "/" + capmsg),
-            {
-                Author: auth.currentUser.displayName,
-                Email: auth.currentUser.email,
-                Caption: capmsg,
-                ImageUrl: finalImage,
-                Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear()
-            },
-            localStorage.setItem("canAccessItems",true),
-            console.log("SET TO TRUE")
-            );
+            if(!((""+auth.currentUser.photoURL).localeCompare('null')===0)){
+              set(ref(db, "Users" + "/" + s  + "/" + capmsg),
+              {
+                  Author: auth.currentUser.displayName,
+                  Email: auth.currentUser.email,
+                  Caption: capmsg,
+                  ImageUrl: finalImage,
+                  Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear(),
+                  PfpUrl: auth.currentUser.photoURL
+              },
+              localStorage.setItem("canAccessItems",true),
+              );
+            }
+            else{
+
+              var diffAccountName = localStorage.getItem("authEmail")
+              diffAccountName = diffAccountName.substring(0, diffAccountName.indexOf("@"))
+
+              set(ref(db, "Users" + "/" + s  + "/" + capmsg),
+              {
+                  Author: diffAccountName,
+                  Email: auth.currentUser.email,
+                  Caption: capmsg,
+                  ImageUrl: finalImage,
+                  Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear(),
+                  PfpUrl: defaultPfp
+              },
+              localStorage.setItem("canAccessItems",true),
+              );
+            }
+
           })
         })
       })

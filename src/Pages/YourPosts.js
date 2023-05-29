@@ -10,16 +10,6 @@ function YourPosts() {
 
   useEffect(() => {
 
-    var e = localStorage.getItem('canAccessItems')
-    console.log("Value before if: " + e)
-    if(e==false){
-      console.log('went here')
-      window.location.pathname = "/";
-    }
-    else{
-      console.log("E is " + e)
-    }
-
     setList([])      
     var s = localStorage.getItem("authEmail")
     s = s.replace("@","")
@@ -29,6 +19,7 @@ function YourPosts() {
       if(snapshot.hasChildren){
         const data = snapshot.val()
         if(data){
+          console.log(data)
             {Object.values(data).map(newitem => (setList(prev => [...prev, newitem])))}
           }
         }
@@ -45,10 +36,13 @@ function YourPosts() {
       <div>
 
         {list.map((item) => {
+
+          
+
           if(item.Author){
             return(
             <div className="post">
-              <Post Author={item.Author} Caption={item.Caption} ImageUrl={item.ImageUrl} Date={item.Date}></Post>
+              <Post Author={item.Author} Caption={item.Caption} ImageUrl={item.ImageUrl} Date={item.Date} pfpImg={item.PfpUrl}></Post>
             </div>)
           }
         })}

@@ -9,6 +9,7 @@ function Dashboard() {
   const [count, setCount] = useState(0)
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
+  const [defImg, setDefImg] = useState(false)
 
   const inc = () => {
      setCount(prevState => prevState + 1)
@@ -25,7 +26,12 @@ function Dashboard() {
       setName(s)
     }
     else{setName(localStorage.getItem("authName"))}
-    onValue(ref(db, "Users" + "/" + localStorage.getItem("authName")), (snapshot) => {
+
+    var s = localStorage.getItem("authEmail")
+    s = s.replace("@","")
+    s = s.replace(".","")
+
+    onValue(ref(db, "Users" + "/" + s), (snapshot) => {
       if(snapshot.hasChildren){
         const data = snapshot.val()
           for(var key in data){
@@ -35,9 +41,9 @@ function Dashboard() {
     });
 
     if((""+localStorage.getItem("authImage")).localeCompare("null")===0){
-      localStorage.setItem("authImage", defaultImg.link)
+      localStorage.setItem("authImage", defaultImg)
+      setDefImg(true)
     }
-
 
   }, [])
 
@@ -62,11 +68,11 @@ function Dashboard() {
         <div className="infoDiv">
             <h1>Email: {email}</h1>
             <h1>Posts: {count} </h1>
+            <h1>Account Creation: {localStorage.getItem('authCreation')} </h1>
         </div>
       </div>
     )
   }
-
 }
 
 export default Dashboard

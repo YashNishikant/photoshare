@@ -17,4 +17,9 @@
     align-items: center;
     font-size: calc(10px + 2vmin);
     color: white;
-  }
+}
+
+.post{
+    margin-left:30%;
+    width:100%;
+}
