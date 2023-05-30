@@ -1,33 +1,33 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "../Components/Post.css"
-
-var w;
-var h;
-var oldWidth;
-var newWidth;
 
 function Post({Author, Caption, ImageUrl, Date, pfpImg}) {
 
-  const img = new Image()
-  img.src = ImageUrl
+const [w, setW] = useState(0);
+const [h, setH] = useState(0);
 
-  oldWidth = img.width;
-  newWidth = img.Width
-
-  if(img.width > 500) {
-    w=500
+const img = new Image();
+img.src = ImageUrl;
+img.onload = () => {
+  var oldWidth = img.width;
+  var newWidth = img.width;
+  const height = img.height;
+  
+  if(oldWidth > 500) {
+    setW(500)
     newWidth = 500;
   }
-  else 
-    w = img.width
-  
-  if(img.height > 500) {
-    const ratio = (newWidth/oldWidth)
-    h=img.height*(ratio)
+  else{
+    setW(img.width)
   }
-
+  if(height > 500) {
+    const ratio = (newWidth/oldWidth)
+    setH(height*(ratio))
+  }
   else 
-    h = img.height
+    setH(height)
+
+};
 
   return(
     <div className='totaldiv'>
@@ -41,7 +41,7 @@ function Post({Author, Caption, ImageUrl, Date, pfpImg}) {
           </div>
         
           <hr/>
-          <img src={ImageUrl}></img>
+          <img src={ImageUrl} style={{width:w, height:h}}></img>
           <p>{Author}: {Caption}</p>
         </form>
     </div>
