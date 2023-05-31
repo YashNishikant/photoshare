@@ -31,7 +31,6 @@ function Home() {
     }
     const metadata = auth.currentUser.metadata;
 
-    console.log((metadata.creationTime == metadata.lastSignInTime) && localStorage.getItem("firstTime").localeCompare('true')===0)
     if ((metadata.creationTime == metadata.lastSignInTime) && localStorage.getItem("firstTime").localeCompare('true')===0 && !(""+auth.currentUser.photoURL).localeCompare('null')===0) {
 
       push(ref(db, "Users/userlist"),

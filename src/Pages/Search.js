@@ -84,7 +84,7 @@ function Search() {
           return(
             <div>
               <h1>{emailnode}</h1>
-              <NameNode handleClick={clickevent} pfpimg={item[0]} Name={item[1]} email={item[2]}></NameNode>
+              <NameNode handleClick={clickevent} pfpimg={item[0]} Name={item[1]} email={item[2]} canRemove={false}></NameNode>
             </div>
           )
       })}

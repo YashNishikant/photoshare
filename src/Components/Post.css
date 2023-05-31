@@ -5,7 +5,6 @@
   margin-top:20px;
   padding: 20px;
   border-radius: 10px;
-  border-width:0cm;
   flex-direction: column;
   align-self: center; 
   align-items: center; 
@@ -16,6 +15,21 @@
   display: flex; 
   justify-content: space-between;
   margin-left: 0px;
+}
+
+.trash{
+  display: flex; 
+  justify-content: space-between;
+  margin-right: 0px;
+  width:3%
+}
+
+.trash:hover{
+  display: flex; 
+  justify-content: space-between;
+  margin-right: 0px;
+  cursor: pointer;
+  width:3%
 }
 
 .pfpPost{

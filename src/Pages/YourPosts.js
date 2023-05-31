@@ -36,13 +36,10 @@ function YourPosts() {
       <div>
 
         {list.map((item) => {
-
-          
-
           if(item.Author){
             return(
             <div className="post">
-              <Post Author={item.Author} Caption={item.Caption} ImageUrl={item.ImageUrl} Date={item.Date} pfpImg={item.PfpUrl}></Post>
+              <Post Author={item.Author} Caption={item.Caption} ImageUrl={item.ImageUrl} Date={item.Date} pfpImg={item.PfpUrl} canRemove={true}></Post>
             </div>)
           }
         })}
