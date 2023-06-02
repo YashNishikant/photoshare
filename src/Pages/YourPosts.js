@@ -19,7 +19,6 @@ function YourPosts() {
       if(snapshot.hasChildren){
         const data = snapshot.val()
         if(data){
-          console.log(data)
             {Object.values(data).map(newitem => (setList(prev => [...prev, newitem])))}
           }
         }

@@ -60,7 +60,7 @@ function Dashboard() {
     return (
       <div>
 
-      <img className="pfp" src={localStorage.getItem("authImage")}/>
+      <img className="pfp" src={localStorage.getItem("authImage")} referrerPolicy="no-referrer"/>
       <h1 className="welcome">Welcome {name}</h1>
 
       <hr></hr>

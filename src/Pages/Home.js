@@ -23,6 +23,7 @@ function Home() {
       setName(s)
     }
     else{setName(localStorage.getItem("authName"))}
+
   });
 
   const writeData = () => {
@@ -86,7 +87,7 @@ function Home() {
                   Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear(),
                   PfpUrl: auth.currentUser.photoURL
               },
-              localStorage.setItem("canAccessItems",true),
+              window.location.pathname = "/YourPosts"
               );
             }
             else{
@@ -103,7 +104,7 @@ function Home() {
                   Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear(),
                   PfpUrl: defaultPfp
               },
-              localStorage.setItem("canAccessItems",true),
+              window.location.pathname = "/YourPosts"
               );
             }
 
