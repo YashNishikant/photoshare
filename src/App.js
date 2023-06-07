@@ -7,7 +7,6 @@ import CreateAccount from './Pages/CreateAccount';
 import YourPosts from './Pages/YourPosts';
 import Search from './Pages/Search';
 import MGlass from './Components/magnifyingGlass.png';
-
 import {signOut} from "firebase/auth"
 import { useState } from 'react';
 import { auth } from './firebaseconfig';
@@ -27,7 +26,6 @@ function App() {
 
   return (
         <Router>
-
             <nav className="navDiv">
               <nav className='majorityNav'>
                 {!isAuth ? (
@@ -39,11 +37,11 @@ function App() {
                 <Link to ="/Dashboard"> Dashboard </Link>  
                 <Link to ="/"> Home </Link>  
 
-                {!isAuth ? (
+                {/* {!isAuth ? (
                   <Link to ="/CreateAccount">Sign Up</Link>
                   ) : (
                     <></>
-                  )}
+                  )} */}
 
                 {isAuth ? (
                   <Link to ="/YourPosts">Your Posts</Link>
@@ -66,7 +64,7 @@ function App() {
             <Route path="/Dashboard" element={<Dashboard/>} />
             <Route path="/YourPosts" element={<YourPosts/>} />
             <Route path="/Search" element={<Search/>} />
-            <Route path="/CreateAccount" element={<CreateAccount setAuth = {setAuth}/>} />
+            {/* <Route path="/CreateAccount" element={<CreateAccount setAuth = {setAuth}/>} /> */}
 
           </Routes>
         </Router>

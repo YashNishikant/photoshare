@@ -22,7 +22,7 @@ function CreateAccount({setAuth}) {
             <header className="App-header">
 
             <input className="App-login" placeholder='Username' onChange={(e)=>{setEmail(e.target.value)}}/>
-            <input className="App-pswrd" placeholder='Password' onChange={(e)=>{setPassword(e.target.value)}}/>
+            <input className="App-pswrd" placeholder='Password' onChange={(e)=>{setPassword(e.target.value)}} type="password"/>
             
             <button className="signinButton" onClick={createAcc}>Sign Up</button>
 

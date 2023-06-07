@@ -33,7 +33,6 @@ function YourPosts() {
   else{
     return (
       <div>
-
         {list.map((item) => {
           if(item.Author){
             return(

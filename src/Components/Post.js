@@ -11,6 +11,7 @@ const [h, setH] = useState(0);
 
 const img = new Image();
 img.src = ImageUrl;
+
 img.onload = () => {
   var oldWidth = img.width;
   var newWidth = img.width;

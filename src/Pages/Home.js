@@ -32,7 +32,7 @@ function Home() {
     }
     const metadata = auth.currentUser.metadata;
 
-    if ((metadata.creationTime == metadata.lastSignInTime) && localStorage.getItem("firstTime").localeCompare('true')===0 && !(""+auth.currentUser.photoURL).localeCompare('null')===0) {
+    if ((metadata.creationTime == metadata.lastSignInTime) && localStorage.getItem("firstTime").localeCompare('true')===0 && !(localStorage.getItem("authImage").localeCompare('null')===0)) {
 
       push(ref(db, "Users/userlist"),
       {
@@ -44,7 +44,7 @@ function Home() {
       );
     }
     else if ((metadata.creationTime == metadata.lastSignInTime) && localStorage.getItem("firstTime").localeCompare('true')===0 && (""+auth.currentUser.photoURL).localeCompare('null')===0){
-      
+
       var diffAccountName = localStorage.getItem("authEmail")
       diffAccountName = diffAccountName.substring(0, diffAccountName.indexOf("@"))
 
@@ -87,11 +87,10 @@ function Home() {
                   Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear(),
                   PfpUrl: auth.currentUser.photoURL
               },
-              window.location.pathname = "/YourPosts"
+                window.location.pathname = "/YourPosts"
               );
             }
             else{
-
               var diffAccountName = localStorage.getItem("authEmail")
               diffAccountName = diffAccountName.substring(0, diffAccountName.indexOf("@"))
 
@@ -104,7 +103,7 @@ function Home() {
                   Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear(),
                   PfpUrl: defaultPfp
               },
-              window.location.pathname = "/YourPosts"
+                window.location.pathname = "/YourPosts"
               );
             }
 
@@ -116,6 +115,10 @@ function Home() {
     setImage(null)
   };
 
+if(!localStorage.getItem("isAuth")){
+  window.location.pathname = "/Login";
+  return(<div>Redirecting...</div>)
+}
 return (
   <div>
   <header className="App-header">

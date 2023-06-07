@@ -43,12 +43,12 @@ function Search() {
             j++
         }
 
-        tempList = listShow
+        tempList = listShow 
         for(var i = tempList.length-1; i >= 0; i--){
           var s1 = (""+tempList[i][2]).toLocaleLowerCase()
           var s2 = (""+e.target.value).toLocaleLowerCase()
             if((s1).includes(s2)){
-                const a = [tempList[i][1], tempList[i][2], tempList[i][0]]
+                const a = [tempList[i][0], tempList[i][1], tempList[i][2]]
                 setListDisplay(prev => [...(prev), a])
             }
         }
@@ -67,12 +67,18 @@ function Search() {
     var s = e
     s = s.replace("@","")
     s = s.replace(".","")
-
+ 
     onValue(ref(db, "Users/"+s), (snapshot) => {
       const data = snapshot.val()
-      Object.values(data).map(newitem => (setOtherUser(prev => [...prev, newitem])))
+      
+      if(!data){
+        setOtherUser([])
+        alert("User has no posts")
+      }
+      else{
+        Object.values(data).map(newitem => (setOtherUser(prev => [...prev, newitem])))
+      }
     })
-
   }
 
   return (
@@ -84,7 +90,7 @@ function Search() {
           return(
             <div>
               <h1>{emailnode}</h1>
-              <NameNode handleClick={clickevent} pfpimg={item[0]} Name={item[1]} email={item[2]} canRemove={false}></NameNode>
+              <NameNode handleClick={clickevent} email={item[0]} pfpimg={item[1]} Name={item[2]}  ></NameNode>
             </div>
           )
       })}
@@ -95,7 +101,7 @@ function Search() {
       {otherUser.map((item) => {
         return(
           <div className='post' >
-            <Post Author={item.Author} Caption={item.Caption} ImageUrl={item.ImageUrl} Date={item.Date} pfpImg={item.PfpUrl}></Post>
+            <Post Author={item.Author} Caption={item.Caption} ImageUrl={item.ImageUrl} Date={item.Date} pfpImg={item.PfpUrl} canRemove={false}></Post>
           </div>
         )
       })}

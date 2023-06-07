@@ -13,13 +13,12 @@ function Login({setAuth}) {
     const signInWithGoogle = () => {
         signInWithPopup(auth, provider).then((result) =>{
             localStorage.setItem("isAuth",true)
-            localStorage.setItem("authName",auth.currentUser.displayName)
-            localStorage.setItem("authEmail",auth.currentUser.email)
-            localStorage.setItem("authImage",auth.currentUser.photoURL)
-            localStorage.setItem("authCreation",auth.currentUser.metadata.creationTime)
+            localStorage.setItem("authName",result.user.displayName)
+            localStorage.setItem("authEmail",result.user.email)
+            localStorage.setItem("authImage",result.user.photoURL)
+            localStorage.setItem("authCreation",result.user.metadata.creationTime)
             localStorage.setItem("canAccessItems",true)
             localStorage.setItem("firstTime", true)
-            
             setAuth(true);
             window.location.pathname = "/";
         });
@@ -28,20 +27,22 @@ function Login({setAuth}) {
     const signInEmailPswrd = () => {
         signInWithEmailAndPassword(auth, email, password).then((result) =>{
             localStorage.setItem("isAuth",true)
-            localStorage.setItem("authName",auth.currentUser.displayName)
-            localStorage.setItem("authEmail",auth.currentUser.email)
-            localStorage.setItem("authImage",auth.currentUser.photoURL)
-            localStorage.setItem("authCreation",auth.currentUser.metadata.creationTime)
+            localStorage.setItem("authName",result.user.displayName)
+            localStorage.setItem("authEmail",result.user.email)
+            localStorage.setItem("authImage",result.user.photoURL)
+            localStorage.setItem("authCreation",result.user.metadata.creationTime)
             localStorage.setItem("canAccessItems",true)
             localStorage.setItem("firstTime", true)
+
+            console.log(result.user.providerData)
             
             if(localStorage.getItem("authName").localeCompare("null")==0){
-                var s = ""+auth.currentUser.email
+                var s = ""+result.user.email
                 s = s.substring(0,s.indexOf("@"))
                 localStorage.setItem("authName",s)
             }
             
-            localStorage.setItem("authEmail",auth.currentUser.email)
+            localStorage.setItem("authEmail",result.user.email)
             setAuth(true);
             window.location.pathname = "/";
         });
@@ -49,15 +50,15 @@ function Login({setAuth}) {
 
     return (
         <div className="login">    
-            <header className="App-header">
+            <header className="login-header">
             <img className="cameraLogo" src={camlogo}></img>
 
-            <input className="App-login" placeholder='Username' onChange={(e)=>{setEmail(e.target.value)}}/>
-            <input className="App-pswrd" placeholder='Password' onChange={(e)=>{setpassword(e.target.value)}} type="password"/>
+            {/* <input className="App-login" placeholder='Username' onChange={(e)=>{setEmail(e.target.value)}}/>
+            <input className="App-pswrd" placeholder='Password' onChange={(e)=>{setpassword(e.target.value)}} type="password"/> */}
             
-            <button className="signinButton" onClick={signInEmailPswrd} >Sign In</button>
+            {/* <button className="signinButton" onClick={signInEmailPswrd} >Sign In</button> */}
+            
             <button className="googlebutton" onClick={signInWithGoogle}>
-
             <img src={googleimage} className="googlelogo" border="0"/>
                 Continue With Google
             </button>
