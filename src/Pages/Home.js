@@ -4,6 +4,7 @@ import { db, auth, storage } from '../firebaseconfig'
 import { set, ref, onValue, getDatabase, push } from 'firebase/database';
 import { getDownloadURL, listAll, ref as refImg, uploadBytes } from 'firebase/storage'
 import defaultPfp from '../Components/defaultpfp.png'
+import { useNavigate } from 'react-router';
 
 var s
 var refImage
@@ -14,6 +15,7 @@ function Home() {
   const [capmsg, setCapMsg] = useState("")
   const [image, setImage] = useState(null)
   const [name, setName] = useState("")
+  const navigate = useNavigate()
 
   useEffect(() => {
 
@@ -87,7 +89,7 @@ function Home() {
                   Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear(),
                   PfpUrl: auth.currentUser.photoURL
               },
-                window.location.pathname = "/photoshare/YourPosts"
+                navigate("/YourPosts")
               );
             }
             else{
@@ -103,7 +105,7 @@ function Home() {
                   Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear(),
                   PfpUrl: defaultPfp
               },
-                window.location.pathname = "/photoshare/YourPosts"
+                navigate("/YourPosts")
               );
             }
 
@@ -116,7 +118,7 @@ function Home() {
   };
 
 if(!localStorage.getItem("isAuth")){
-  window.location.pathname = "/photoshare";
+  navigate("/photoshare")
   return(<div>Redirecting...</div>)
 }
 return (

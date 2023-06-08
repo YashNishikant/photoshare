@@ -3,6 +3,7 @@ import "../Pages/Dashboard.css"
 import { db, auth } from '../firebaseconfig'
 import { onValue, ref } from 'firebase/database'
 import defaultImg from '../Components/defaultpfp.png'
+import { useNavigate } from 'react-router';
 
 function Dashboard() {
 
@@ -10,6 +11,7 @@ function Dashboard() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [defImg, setDefImg] = useState(false)
+  const navigate = useNavigate()
 
   const inc = () => {
      setCount(prevState => prevState + 1)
@@ -49,7 +51,7 @@ function Dashboard() {
 
 
   if(!localStorage.getItem("isAuth")){
-    window.location.pathname = "/photoshare";
+    navigate("/photoshare")
     return (
       <div>
         Redirecting...
