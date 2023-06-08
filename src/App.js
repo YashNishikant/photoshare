@@ -20,7 +20,7 @@ function App() {
     signOut(auth).then(()=>{
         localStorage.clear();
         setAuth(false);
-        window.location.pathname = "/login";
+        window.location.pathname = "/photoshare";
     })
   };
 

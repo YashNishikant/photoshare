@@ -49,7 +49,7 @@ function Dashboard() {
 
 
   if(!localStorage.getItem("isAuth")){
-    window.location.pathname = "/Login";
+    window.location.pathname = "/photoshare";
     return (
       <div>
         Redirecting...
