@@ -89,7 +89,8 @@ function Home() {
                   Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear(),
                   PfpUrl: auth.currentUser.photoURL
               },
-                navigate("/YourPosts")
+                window.location.pathname = "/YourPosts"
+                
               );
             }
             else{
@@ -105,7 +106,8 @@ function Home() {
                   Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear(),
                   PfpUrl: defaultPfp
               },
-                navigate("/YourPosts")
+                window.location.pathname = "/YourPosts"
+
               );
             }
 
