@@ -15,10 +15,10 @@ function Home() {
   const [capmsg, setCapMsg] = useState("")
   const [image, setImage] = useState(null)
   const [name, setName] = useState("")
+  const [confirm, setConfirm] = useState("")
   const navigate = useNavigate()
 
   useEffect(() => {
-
     if(localStorage.getItem("authName").localeCompare("null")==0){
       s = localStorage.getItem("authEmail")
       s = s.substring(0, s.indexOf("@"))
@@ -29,7 +29,8 @@ function Home() {
   });
 
   const writeData = () => {
-    if(image==null || capmsg==null) {
+    if(image==null || capmsg.trim().localeCompare("")===0) {
+      alert("Caption or Image is Empty")
       return
     }
     const metadata = auth.currentUser.metadata;
@@ -127,14 +128,23 @@ return (
   <div>
   <header className="App-header">
     <h2 className="nametag">{name}</h2>
+    <hr className='namedividor'></hr>
     <div className='textDiv'>
+
+    <input id="upload" type="file" accept=".png,.jpg,.jpeg" onChange={(event)=>{
+      setImage(event.target.files[0])
+      setConfirm("IMAGE UPLOADED")
+    }}></input>
+    <label for="upload">UPLOAD FILE</label>
+
+    <p className='confirm-p'>{confirm}</p>
+
       <input value = {capmsg} className="textfieldCaption" id="textboxCaption" placeholder='Caption'
         onChange={(event)=>{
           setCapMsg(event.target.value)
         }}
       />
-      <input type="file" onChange={(event)=>{setImage(event.target.files[0])}}></input>
-      <button className="signinButton" onClick={writeData}>Submit</button>
+      <button className="signinButton" onClick={writeData}>Post</button>
     </div>
   </header>
   </div>

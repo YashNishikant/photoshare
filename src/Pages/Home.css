@@ -10,12 +10,12 @@
 
 
 .textfield{
-    width: 50%;
-    padding: 12px 20px;
-    display: inline-block;
-    border: 1px solid #777777;
-    box-sizing: border-box; 
-    font-size: larger;
+  width: 50%;
+  padding: 12px 20px;
+  display: inline-block;
+  border: 1px solid #777777;
+  box-sizing: border-box; 
+  font-size: larger;
 }
 
 .textfieldCaption{
@@ -25,6 +25,7 @@
   border: 1px solid #777777;
   box-sizing: border-box; 
   font-size: larger;
+  margin-top:100px;
 }
 
 .signinButton {
@@ -72,6 +73,42 @@ hr{
 
 .nametag{
   color:white;
-  margin-bottom:200px;
-  
+}
+
+input[type="file"]{
+  display: none;
+}
+
+label{
+  display: inline-block;
+  background: #44618f;
+  text-align: center;
+  padding: 20px 40px;
+  border-radius: 4px;
+  font-size:20px;
+  letter-spacing: 1.5px;
+  box-shadow: 5px 15px 20px rgba(0,0,0,0.5);
+  margin-top:50px;
+}
+
+label:hover{
+  display: inline-block;
+  background: #5a76a5;
+  text-align: center;
+  padding: 20px 40px;
+  border-radius: 4px;
+  font-size:20px;
+  letter-spacing: 1.5px;
+  margin-top:50px;
+  cursor: pointer;
+  box-shadow: 5px 15px 20px rgba(0,0,0,0);
+}
+
+.namedividor{
+  width:90%
+}
+
+.confirm-p{
+  letter-spacing: 1.5px;
+  font-family:monospace;
 }
