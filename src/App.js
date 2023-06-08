@@ -25,17 +25,17 @@ function App() {
   };
 
   return (
-        <Router>
+        <Router basename='photoshare'>
             <nav className="navDiv">
               <nav className='majorityNav'>
                 {!isAuth ? (
-                  <Link to ="/Login"> Login </Link>
+                  <Link to ="/photoshare/"> Login </Link>
                   ) : (
-                    <Link to ="/Login" onClick={signUserOut}> Log Out </Link>
+                    <Link to ="/photoshare/Login" onClick={signUserOut}> Log Out </Link>
                   )}  
 
-                <Link to ="/Dashboard"> Dashboard </Link>  
-                <Link to ="/"> Home </Link>  
+                <Link to ="/photoshare/Dashboard"> Dashboard </Link>  
+                <Link to ="/photoshare/Home"> Home </Link>  
 
                 {/* {!isAuth ? (
                   <Link to ="/CreateAccount">Sign Up</Link>
@@ -44,7 +44,7 @@ function App() {
                   )} */}
 
                 {isAuth ? (
-                  <Link to ="/YourPosts">Your Posts</Link>
+                  <Link to ="/photoshare/YourPosts">Your Posts</Link>
                   ) : (
                     <></>
                   )}    
@@ -52,19 +52,18 @@ function App() {
               </nav>
               <nav className='searchLink'>
               {isAuth ? (
-                  <Link className="searchLink" to ="/Search"><img src={MGlass}/></Link>
+                  <Link className="searchLink" to ="/photoshare/Search"><img src={MGlass}/></Link>
                   ) : (
                     <></>
                   )}    
               </nav>
             </nav>
           <Routes>
-            <Route path="/Login" element={<Login setAuth = {setAuth}/>} />
-            <Route path="/" element={<Home/>} />
-            <Route path="/Dashboard" element={<Dashboard/>} />
-            <Route path="/YourPosts" element={<YourPosts/>} />
-            <Route path="/Search" element={<Search/>} />
-            {/* <Route path="/CreateAccount" element={<CreateAccount setAuth = {setAuth}/>} /> */}
+            <Route path="/photoshare/" element={<Login setAuth = {setAuth}/>} />
+            <Route path="/photoshare/Home" element={<Home/>} />
+            <Route path="/photoshare/Dashboard" element={<Dashboard/>} />
+            <Route path="/photoshare/YourPosts" element={<YourPosts/>} />
+            <Route path="/photoshare/Search" element={<Search/>} /> 
 
           </Routes>
         </Router>
