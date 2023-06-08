@@ -20,7 +20,7 @@ function Login({setAuth}) {
             localStorage.setItem("canAccessItems",true)
             localStorage.setItem("firstTime", true)
             setAuth(true);
-            window.location.pathname = "/photoshare/Home";
+            window.location.pathname = "/Home";
         });
     }
 
@@ -44,7 +44,7 @@ function Login({setAuth}) {
             
             localStorage.setItem("authEmail",result.user.email)
             setAuth(true);
-            window.location.pathname = "/photoshare/Home";
+            window.location.pathname = "/Home";
         });
     }
 
