@@ -25,6 +25,7 @@ function App() {
   };
 
   return (
+
         <Router basename='photoshare'>
             <nav className="navDiv">
               <nav className='majorityNav'>
