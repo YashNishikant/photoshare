@@ -90,7 +90,7 @@ function Home() {
                   Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear(),
                   PfpUrl: auth.currentUser.photoURL
               },
-                window.location.pathname = "/YourPosts"
+                window.location.pathname = "/photoshare/YourPosts"
                 
               );
             }
@@ -107,7 +107,7 @@ function Home() {
                   Date: date.toLocaleString('default', { month: 'long' })+" "+date.getDate()+", "+date.getFullYear(),
                   PfpUrl: defaultPfp
               },
-                window.location.pathname = "/YourPosts"
+                window.location.pathname = "/photoshare/YourPosts"
 
               );
             }
