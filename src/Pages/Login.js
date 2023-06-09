@@ -51,25 +51,30 @@ function Login({setAuth}) {
     //         window.location.pathname = "/photoshare/Home";
     //     });
     // }
+    if(localStorage.getItem("isAuth")){
+        navigate("/home")
+        return(<div>Redirecting...</div>)
+    }
+    else{
+        return (
+            <div className="login">    
+                <header className="login-header">
+                <img className="cameraLogo" src={camlogo}></img>
 
-    return (
-        <div className="login">    
-            <header className="login-header">
-            <img className="cameraLogo" src={camlogo}></img>
+                {/* <input className="App-login" placeholder='Username' onChange={(e)=>{setEmail(e.target.value)}}/>
+                <input className="App-pswrd" placeholder='Password' onChange={(e)=>{setpassword(e.target.value)}} type="password"/> */}
+                
+                {/* <button className="signinButton" onClick={signInEmailPswrd} >Sign In</button> */}
+                
+                <button className="googlebutton" onClick={signInWithGoogle}>
+                <img src={googleimage} className="googlelogo" border="0"/>
+                    Continue With Google
+                </button>
 
-            {/* <input className="App-login" placeholder='Username' onChange={(e)=>{setEmail(e.target.value)}}/>
-            <input className="App-pswrd" placeholder='Password' onChange={(e)=>{setpassword(e.target.value)}} type="password"/> */}
-            
-            {/* <button className="signinButton" onClick={signInEmailPswrd} >Sign In</button> */}
-            
-            <button className="googlebutton" onClick={signInWithGoogle}>
-            <img src={googleimage} className="googlelogo" border="0"/>
-                Continue With Google
-            </button>
-
-            </header>
-        </div>
-    )
+                </header>
+            </div>
+        )
+    }
 }
 
 export default Login
